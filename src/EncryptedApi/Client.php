@@ -43,13 +43,13 @@ class Client {
 
 		$serialized_request = serialize($requestData);
 
-		$encrypter = new \Encryption\Encrypter($this->encryptionKey);
+		$encrypter = new Encryption\Encrypter($this->encryptionKey);
 
 		$encoded = $encrypted->encode($serialized_request);
 
 		// Init curl
 		$curl = curl_init();
-		
+
 		curl_setopt($curl, CURLOPT_URL, $this->url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 

@@ -26,7 +26,7 @@ class Server {
 			throw new \Exception('encryption key not present.');
 		}
 
-		$encrypter = new \Encryption\Encrypter($this->encryptionKey);
+		$encrypter = new Encryption\Encrypter($this->encryptionKey);
 
 		$serialized_request = $encrypter->decode($encryptedRequest);
 
