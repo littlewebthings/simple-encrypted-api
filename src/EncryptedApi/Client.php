@@ -16,7 +16,7 @@ class Client {
 		}
 	}
 
-	public function setEncryptionKey(String $encryptionKey) {
+	public function setEncryptionKey($encryptionKey) {
 		if (!empty($encryptionKey)) {
 			$this->encryptionKey = $encryptionKey;
 		} else {
@@ -24,7 +24,7 @@ class Client {
 		}
 	}
 
-	public function setURL(String $url) {
+	public function setURL($url) {
 		if (!empty($url)) {
 			$this->url = $url;
 		} else {
@@ -33,19 +33,7 @@ class Client {
 	}
 
 	public function sendRequest($requestData) {
-		if (empty($this->url)) {
-			throw new \Exception('server URL not specified.');
-		}
-
-		if (empty($this->encryptionKey)) {
-			throw new \Exception('encryption key not specified.');			
-		}
-
-		$serialized_request = serialize($requestData);
-
-		$encrypter = new Encryption\Encrypter($this->encryptionKey);
-
-		$encoded = $encrypted->encode($serialized_request);
+		$encoded = $this->encodeRequest($requestData);
 
 		// Init curl
 		$curl = curl_init();
@@ -56,6 +44,24 @@ class Client {
 		$result = curl_exec($curl);
 
 		return $result;
+	}
+
+	public function encodeRequest($requestData) {
+		if (empty($this->url)) {
+			throw new \Exception('server URL not specified.');
+		}
+
+		if (empty($this->encryptionKey)) {
+			throw new \Exception('encryption key not specified.');			
+		}
+
+		$serialized_request = serialize($requestData);
+
+		$encrypter = new \Encryption\Encrypter($this->encryptionKey);
+
+		$encoded = $encrypter->encode($serialized_request);
+
+		return $encoded;
 	}
 
 }

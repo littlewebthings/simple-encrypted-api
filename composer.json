@@ -1,7 +1,6 @@
 {
     "name": "littlewebthings/simple-encrypted-api",
     "description": "API client server that uses PHP encryption libraries.",
-    "require-dev": {},
     "license": "MIT",
     "authors": [
         {
@@ -12,8 +11,11 @@
     "require": {
         "hieblmedia/simple-php-encrypter-decrypter": "dev-master"
     },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
     "autoload": {
-        "psr-4": {"EncryptedApi\\": "src/"}
+        "psr-0": {"EncryptedApi\\": "src/"}
     }
 
 }

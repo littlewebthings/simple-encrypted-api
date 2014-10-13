@@ -12,7 +12,7 @@ class Server {
 		}
 	}
 
-	public function setEncryptionKey(String $encryptionKey) {
+	public function setEncryptionKey($encryptionKey) {
 		if (!empty($encryptionKey)) {
 			$this->encryptionKey = $encryptionKey;
 		} else {
@@ -20,19 +20,21 @@ class Server {
 		}
 	}
 
-	public function processRequest(String $encryptedRequest) {
+	public function processRequest($encryptedRequest) {
+		return $this->decodeRequest($encryptedRequest);
+	}
 
+	public function decodeRequest($encryptedRequest) {
 		if (empty($this->encryptionKey)) {
 			throw new \Exception('encryption key not present.');
 		}
 
-		$encrypter = new Encryption\Encrypter($this->encryptionKey);
+		$encrypter = new \Encryption\Encrypter($this->encryptionKey);
 
 		$serialized_request = $encrypter->decode($encryptedRequest);
 
 		$request = unserialize($serialized_request);
-
+	
 		return $request;
 	}
-
 }
