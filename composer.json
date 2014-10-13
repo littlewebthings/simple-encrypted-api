@@ -1,0 +1,19 @@
+{
+    "name": "littlewebthings/simple-encrypted-api",
+    "description": "API client server that uses PHP encryption libraries.",
+    "require-dev": {},
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vassilis Dourdounis",
+            "email": "dourdoun@gmail.com"
+        }
+    ],
+    "require": {
+        "hieblmedia/simple-php-encrypter-decrypter": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"EncryptedApi\\": "src/"}
+    }
+
+}
