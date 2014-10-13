@@ -20,7 +20,9 @@ class Server {
 		}
 	}
 
-	public function processRequest($encryptedRequest) {
+	public function processRequest() {
+		$encryptedRequest = $_GET['r'];
+
 		return $this->decodeRequest($encryptedRequest);
 	}
 
@@ -33,8 +35,19 @@ class Server {
 
 		$serialized_request = $encrypter->decode($encryptedRequest);
 
-		$request = unserialize($serialized_request);
+		$request = json_decode($serialized_request, true);
 	
 		return $request;
+	}
+
+	public function encodeResponse($response) {
+
+		$serialized = json_encode($response, true);
+
+		$encrypter = new \Encryption\Encrypter($this->encryptionKey);
+
+		$response = $encrypter->encode($serialized);
+
+		return $response;
 	}
 }
